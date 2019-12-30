@@ -1,7 +1,7 @@
 # chisel3-device_under_test
 Template to write &amp; validate your hardware module with Chisel3 language for absolute beginner
 
-## Preparation before you start
+## 1.Preparation before you start
 
 First of all you need to install sbt(scala build tool) and verilator in your environment. I tested files on CentOS7, please modify preparation part if you are using different linux distribution.
 
@@ -21,7 +21,7 @@ $> unset VERILATOR_ROOT
 $> cd ~/work/verilator; autoconf; ./configure; make -j3; make install
 ```
 
-## How to start
+## 2.How to start
 
 Check out from github repositry. 
 ```
@@ -36,7 +36,7 @@ $> sbt "compile"
 $> sbt "test:runMain device_under_test_0.DEVICE_UNDER_TEST_0Main" # just run with scala
 $> sbt "test:runMain device_under_test_0.DEVICE_UNDER_TEST_0Main --backend-name verilator" # to enable verilator backend
 ```
-## How to check the simulation results
+## 3.How to check the simulation results
 
 You can check translated verilog HDL description and vcd under MyProject/test_run_dir/device_under_test_0.DEVICE_UNDER_TEST_0Mainxxxxxxxx directory when using verilator backend option. To see the vcd waveform, use gtkwave.
 
@@ -46,7 +46,7 @@ $> gtkwave DEVICE_UNDER_TEST_0.vcd
 
 
 
-## How to modify these files for your own design needs
+## 4.How to modify these files for your own design needs
  
  ### chisel3-device_under_test/src/main/scala/dut.scala
  This is file to describe DUT(device under test) and its TB(testbench). You can modify your DUT and TB whatever you like.
@@ -54,9 +54,20 @@ $> gtkwave DEVICE_UNDER_TEST_0.vcd
  ### chisel3-device_under_test/src/test/scala/main.scala
  This is file to describe main object. Also extending class to let merget verilator backend to kick RTL simulation. This file is independent from DUT and TB, you don't have to change the file if you are happy with current environment.
 
+## 5.Reference
 
+### getting start with Chisel3 
+You can start chisel tutorial on your web brower without instaling anything! Just brilliant work.... 
+https://mybinder.org/v2/gh/freechipsproject/chisel-bootcamp/master
 
-## License
+### chisel3 operator list
+https://github.com/freechipsproject/chisel3/wiki/Builtin-Operators
+
+### chisel-template
+I refer this template to start with making my repositry. This is very useful.
+https://github.com/ucb-bar/chisel-template.git
+
+## 6.License
 
 This is free and unencumbered software released into the public domain.
 
