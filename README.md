@@ -48,10 +48,12 @@ $> gtkwave DEVICE_UNDER_TEST_0.vcd
 
 ## 4.How to modify these files for your own design needs
 
- ### chisel3-device_under_test/src/main/scala/dut.scala 
+ ### chisel3-device_under_test/src/main/scala/dut.scala
+ https://github.com/SuminoeRabbits/chisel3-device_under_test/blob/master/src/main/scala/dut.scala
  This is file to describe DUT(device under test) and its TB(testbench). You can modify your DUT and TB whatever you like.
 
  ### chisel3-device_under_test/src/test/scala/main.scala
+ https://github.com/SuminoeRabbits/chisel3-device_under_test/blob/master/src/test/scala/main.scala
  This is file to describe main object. Also extending class to let merget verilator backend to kick RTL simulation. This file is independent from DUT and TB, you don't have to change the file if you are happy with current test environment.
 
 ## 5.Reference
