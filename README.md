@@ -5,26 +5,46 @@ Template to write &amp; validate your hardware module with Chisel3 language for 
 
 First of all you need to install sbt(scala build tool) and verilator in your environment.
 
+### install sbt in CentOS7
+```$> yum -y install epel-release
+$> yum -y install java emacs
+$> curl https://bintray.com/sbt/rpm/rpm | \
+    tee /etc/yum.repos.d/bintray-sbt-rpm.repo
+$> yum -y install sbt
+```
+
+### install verilator on CentOS7
+```$> cd ~/work ; git clone http://git.veripool.org/git/verilator	
+$> unset VERILATOR_ROOT
+$> cd ~/work/verilator; autoconf; ./configure; make -j3; make install
+
+
 ## How to start
 
-Check out from repositry. 
+Check out from github repositry. 
 
 $> mkdir ~/work
 $> cd ~/work
-$> git clone https:// MyProject
+$> git clone https://github.com/SuminoeRabbits/chisel3-device_under_test.git MyProject
 $> cd MyProject
 
 Then starting sbt,
+
 $> sbt "compile"
 $> sbt "test:runMain device_under_test_0.DEVICE_UNDER_TEST_0Main" # just run with scala
 $> sbt "test:runMain device_under_test_0.DEVICE_UNDER_TEST_0Main --backend-name verilator" # to enable verilator backend
 
+## How to check the simulation results
+
+
+
+
 ## How to modify these files for your own design needs
  
- ###chisel3-device_under_test/src/main/scala/dut.scala
+ ### chisel3-device_under_test/src/main/scala/dut.scala
  This is file to describe DUT(device under test) and its TB(testbench). You can modify your DUT and TB whatever you like.
 
- ###chisel3-device_under_test/src/test/scala/main.scala
+ ### chisel3-device_under_test/src/test/scala/main.scala
  This is file to describe main object. Also extending class to let merget verilator backend to kick RTL simulation. This file is independent from DUT and TB, you don't have to change the file if you are happy with current environment.
 
 
