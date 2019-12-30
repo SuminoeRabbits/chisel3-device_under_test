@@ -35,15 +35,16 @@ class DEVICE_UNDER_TEST_0UnitTester(c: DEVICE_UNDER_TEST_0) extends PeekPokeTest
   * DUT model in TB
   * 
   */
-  def DEVICE_UNDER_TEST_0_TB(a: Int, b: Int, c: Int): (Int) = {
+  def DEVICE_UNDER_TEST_0_TB(a: Int, b: Int, c: Int):(Int) = {
     var x = a
     var y = b
     var z = c
     var out = z
-    if(x-y>0){ 
-      if(x-z>0) { out = x } else { out = z }
+    if(x > y){
+      if(x > z) { out = x } else { out = z }
     }
-    else { if(y-z>0) { out = y } else { out = z }
+    else { 
+      if(y > z) { out = y } else { out = z }
     }
     (out)
   }
@@ -55,13 +56,20 @@ class DEVICE_UNDER_TEST_0UnitTester(c: DEVICE_UNDER_TEST_0) extends PeekPokeTest
 
   for(n <-1 to 100 by 1){
     var r = new Random
-    var i = r.nextInt(10)
-    var j = r.nextInt(10)
-    var k = r.nextInt(10)
+    var i = r.nextInt(256)
+    var j = r.nextInt(256)
+    var k = r.nextInt(256)
     poke(c.io.in1, i)
     poke(c.io.in2, j)
     poke(c.io.in3, k)
     expect(c.io.out,DEVICE_UNDER_TEST_0_TB(i,j,k))
+    if(peek(c.io.out) != DEVICE_UNDER_TEST_0_TB(i,j,k)){
+      //println(s"c.io.in1 = ${peek(c.io.in1)}")
+      //println(s"c.io.in2 = ${peek(c.io.in2)}")
+      //println(s"c.io.in3 = ${peek(c.io.in3)}")
+      println(s"expected out = ${DEVICE_UNDER_TEST_0_TB(i,j,k)}")
+      println(s"c.io.out     = ${peek(c.io.out)}")
+    }
     step(1)
   }
 
