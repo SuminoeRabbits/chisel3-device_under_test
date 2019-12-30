@@ -3,9 +3,9 @@ Template to write &amp; validate your hardware module with Chisel3 language for 
 
 ## Preparation before you start
 
-First of all you need to install sbt(scala build tool) and verilator in your environment.
+First of all you need to install sbt(scala build tool) and verilator in your environment. I tested files on CentOS7, please modify preparation part if you are using different linux distribution.
 
-### install sbt in CentOS7
+### install sbt on CentOS7
 ```
 $> yum -y install epel-release
 $> yum -y install java emacs gtkwave
