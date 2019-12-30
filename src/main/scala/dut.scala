@@ -1,6 +1,7 @@
 package device_under_test_0
 
 import java.io.File
+import scala.util.Random
 
 import chisel3._
 import chisel3.iotesters
@@ -29,15 +30,40 @@ class DEVICE_UNDER_TEST_0 extends Module {
 
 // verify that the max of the three inputs is correct
 class DEVICE_UNDER_TEST_0UnitTester(c: DEVICE_UNDER_TEST_0) extends PeekPokeTester(c) {
-  poke(c.io.in1, 6)
-  poke(c.io.in2, 4)  
-  poke(c.io.in3, 2)  
-  expect(c.io.out, 6)  // input 1 should be biggest
-  poke(c.io.in2, 7)  
-  expect(c.io.out, 7)  // now input 2 is
-  poke(c.io.in3, 11)  
-  expect(c.io.out, 11) // and now input 3
-  poke(c.io.in3, 3)  
-  expect(c.io.out, 7)  // show that decreasing an input works as well
+
+/**
+  * DUT model in TB
+  * 
+  */
+  def DEVICE_UNDER_TEST_0_TB(a: Int, b: Int, c: Int): (Int) = {
+    var x = a
+    var y = b
+    var z = c
+    var out = z
+    if(x-y>0){ 
+      if(x-z>0) { out = x } else { out = z }
+    }
+    else { if(y-z>0) { out = y } else { out = z }
+    }
+    (out)
+  }
+
+/**
+  * TB drives IO pad to DEVICE_UNDER_TEST_0 module
+  * 
+  */
+
+  for(n <-1 to 100 by 1){
+    var r = new Random
+    var i = r.nextInt(10)
+    var j = r.nextInt(10)
+    var k = r.nextInt(10)
+    poke(c.io.in1, i)
+    poke(c.io.in2, j)
+    poke(c.io.in3, k)
+    expect(c.io.out,DEVICE_UNDER_TEST_0_TB(i,j,k))
+    step(1)
+  }
+
 }
 
