@@ -6,37 +6,43 @@ Template to write &amp; validate your hardware module with Chisel3 language for 
 First of all you need to install sbt(scala build tool) and verilator in your environment.
 
 ### install sbt in CentOS7
-```$> yum -y install epel-release
-$> yum -y install java emacs
+```
+$> yum -y install epel-release
+$> yum -y install java emacs gtkwave
 $> curl https://bintray.com/sbt/rpm/rpm | \
     tee /etc/yum.repos.d/bintray-sbt-rpm.repo
 $> yum -y install sbt
 ```
 
 ### install verilator on CentOS7
-```$> cd ~/work ; git clone http://git.veripool.org/git/verilator	
+```
+$> cd ~/work ; git clone http://git.veripool.org/git/verilator	
 $> unset VERILATOR_ROOT
 $> cd ~/work/verilator; autoconf; ./configure; make -j3; make install
-
+```
 
 ## How to start
 
 Check out from github repositry. 
-
+```
 $> mkdir ~/work
 $> cd ~/work
 $> git clone https://github.com/SuminoeRabbits/chisel3-device_under_test.git MyProject
 $> cd MyProject
-
+```
 Then starting sbt,
-
+```
 $> sbt "compile"
 $> sbt "test:runMain device_under_test_0.DEVICE_UNDER_TEST_0Main" # just run with scala
 $> sbt "test:runMain device_under_test_0.DEVICE_UNDER_TEST_0Main --backend-name verilator" # to enable verilator backend
-
+```
 ## How to check the simulation results
 
+You can check translated verilog HDL description and vcd under MyProject/test_run_dir/device_under_test_0.DEVICE_UNDER_TEST_0Mainxxxxxxxx directory when using verilator backend option. To see the vcd waveform, use gtkwave.
 
+```
+$> gtkwave DEVICE_UNDER_TEST_0.vcd
+```
 
 
 ## How to modify these files for your own design needs
