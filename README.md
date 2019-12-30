@@ -1,9 +1,9 @@
 # chisel3-device_under_test
-Template to write &amp; validate your hardware module with Chisel3 language for absolute beginner
+This template gives you quick environemnt to write &amp; validate your hardware module with Chisel3 language. 
 
 ## 1.Preparation before you start
 
-First of all you need to install sbt(scala build tool) and verilator in your environment. I tested files on CentOS7, please modify preparation part if you are using different linux distribution.
+First of all you need to install sbt(scala build tool) and verilator in your environment. I tested files on CentOS7, please modify preparation part if you are using different linux distribution(ie, Ubuntu).
 
 ### install sbt on CentOS7
 ```
@@ -47,12 +47,12 @@ $> gtkwave DEVICE_UNDER_TEST_0.vcd
 
 
 ## 4.How to modify these files for your own design needs
- 
- ### chisel3-device_under_test/src/main/scala/dut.scala
+
+ ### chisel3-device_under_test/src/main/scala/dut.scala 
  This is file to describe DUT(device under test) and its TB(testbench). You can modify your DUT and TB whatever you like.
 
  ### chisel3-device_under_test/src/test/scala/main.scala
- This is file to describe main object. Also extending class to let merget verilator backend to kick RTL simulation. This file is independent from DUT and TB, you don't have to change the file if you are happy with current environment.
+ This is file to describe main object. Also extending class to let merget verilator backend to kick RTL simulation. This file is independent from DUT and TB, you don't have to change the file if you are happy with current test environment.
 
 ## 5.Reference
 
