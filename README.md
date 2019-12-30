@@ -1,7 +1,7 @@
 # chisel3-device_under_test
 Template to write &amp; validate your hardware module with Chisel3 language for absolute beginner
 
-## Preparation
+## Preparation before you start
 
 First of all you need to install sbt(scala build tool) and verilator in your environment.
 
@@ -43,6 +43,7 @@ You can check translated verilog HDL description and vcd under MyProject/test_ru
 ```
 $> gtkwave DEVICE_UNDER_TEST_0.vcd
 ```
+
 
 
 ## How to modify these files for your own design needs
