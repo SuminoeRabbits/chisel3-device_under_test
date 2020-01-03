@@ -29,17 +29,18 @@ class DEVICE_UNDER_TEST_0 extends Module {
 //println(Driver.emitVerilog(new  DEVICE_UNDER_TEST_0))
 
 object memory_scenario{
-  val data = Array.ofDim[Int](3,10)
-  for(n <-1 to 10 by 1){
+  val x = 3
+  val y = 10
+  val data = Array.ofDim[Int](x,y)
+  for(m <-1 to x by 1){
+    for(n <-1 to y by 1){
       var r = new Random
       var i = r.nextInt(256)
-      var j = r.nextInt(256)
-      var k = r.nextInt(256)
-      data(0)(n-1) = i
-      data(1)(n-1) = j
-      data(1)(n-1) = k
+      data(m-1)(n-1) = i
+    }
   }
 }
+
 
 // verify that the max of the three inputs is correct
 class DEVICE_UNDER_TEST_0UnitTester(c: DEVICE_UNDER_TEST_0) extends PeekPokeTester(c) {
@@ -68,10 +69,9 @@ class DEVICE_UNDER_TEST_0UnitTester(c: DEVICE_UNDER_TEST_0) extends PeekPokeTest
   */
 
   for(n <-1 to 10 by 1){
-    var r = new Random
     var x = memory_scenario.data(0)(n-1)
-    var y = memory_scenario.data(0)(n-1)
-    var z = memory_scenario.data(0)(n-1)
+    var y = memory_scenario.data(1)(n-1)
+    var z = memory_scenario.data(2)(n-1)
     poke(c.io.in1, x)
     poke(c.io.in2, y)
     poke(c.io.in3, z)
