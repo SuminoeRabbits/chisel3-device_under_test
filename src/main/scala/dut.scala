@@ -28,6 +28,19 @@ class DEVICE_UNDER_TEST_0 extends Module {
 
 //println(Driver.emitVerilog(new  DEVICE_UNDER_TEST_0))
 
+object memory_scenario{
+  val data = Array.ofDim[Int](3,10)
+  for(n <-1 to 10 by 1){
+      var r = new Random
+      var i = r.nextInt(256)
+      var j = r.nextInt(256)
+      var k = r.nextInt(256)
+      data(0)(n-1) = i
+      data(1)(n-1) = j
+      data(1)(n-1) = k
+  }
+}
+
 // verify that the max of the three inputs is correct
 class DEVICE_UNDER_TEST_0UnitTester(c: DEVICE_UNDER_TEST_0) extends PeekPokeTester(c) {
 
@@ -54,20 +67,17 @@ class DEVICE_UNDER_TEST_0UnitTester(c: DEVICE_UNDER_TEST_0) extends PeekPokeTest
   * 
   */
 
-  for(n <-1 to 100 by 1){
+  for(n <-1 to 10 by 1){
     var r = new Random
-    var i = r.nextInt(256)
-    var j = r.nextInt(256)
-    var k = r.nextInt(256)
-    poke(c.io.in1, i)
-    poke(c.io.in2, j)
-    poke(c.io.in3, k)
-    expect(c.io.out,DEVICE_UNDER_TEST_0_TB(i,j,k))
-    if(peek(c.io.out) != DEVICE_UNDER_TEST_0_TB(i,j,k)){
-      //println(s"c.io.in1 = ${peek(c.io.in1)}")
-      //println(s"c.io.in2 = ${peek(c.io.in2)}")
-      //println(s"c.io.in3 = ${peek(c.io.in3)}")
-      println(s"expected out = ${DEVICE_UNDER_TEST_0_TB(i,j,k)}")
+    var x = memory_scenario.data(0)(n-1)
+    var y = memory_scenario.data(0)(n-1)
+    var z = memory_scenario.data(0)(n-1)
+    poke(c.io.in1, x)
+    poke(c.io.in2, y)
+    poke(c.io.in3, z)
+    expect(c.io.out,DEVICE_UNDER_TEST_0_TB(x,y,z))
+    if(peek(c.io.out) != DEVICE_UNDER_TEST_0_TB(x,y,z)){
+      println(s"expected out = ${DEVICE_UNDER_TEST_0_TB(x,y,z)}")
       println(s"c.io.out     = ${peek(c.io.out)}")
     }
     step(1)
