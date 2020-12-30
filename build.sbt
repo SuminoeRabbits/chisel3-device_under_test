@@ -52,3 +52,6 @@ scalacOptions ++= scalacOptionsVersion(scalaVersion.value)
 
 javacOptions ++= javacOptionsVersion(scalaVersion.value)
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
+
+// enabe plugin under /project/plugins.bst
+enablePlugins(WriteOutputToFile)

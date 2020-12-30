@@ -5,6 +5,7 @@ import java.io.File
 import chisel3._
 import chisel3.iotesters
 import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
+import firrtl._
 
 // to run after compile, use the following command on sbt
 // sbt: > test:runMain device_under_test_0.DEVICE_UNDER_TEST_0Main 
@@ -14,6 +15,12 @@ object DEVICE_UNDER_TEST_0Main extends App {
     c => new DEVICE_UNDER_TEST_0UnitTester(c)
   }
   //println(Driver.emitVerilog(new  DEVICE_UNDER_TEST_0))
+}
+
+object DUMP_FIR extends App {
+  val firrtlSerialization = chisel3.Driver.emit(() => new DEVICE_UNDER_TEST_0)
+  println(";firrtl generation")
+  println(firrtlSerialization)
 }
 
 
