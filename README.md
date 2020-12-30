@@ -21,6 +21,31 @@ $> unset VERILATOR_ROOT
 $> cd ~/work/verilator; autoconf; ./configure; make -j3; make install
 ```
 
+### install firrtl on CentOS7
+
+Install firrtl in your local dir and adding path to your .bashrc. FIRRTL manual is availale on github.
+Note sbt test may fail but not problem to assembly. https://github.com/chipsalliance/firrtl
+
+```
+$> sh -c "git clone https://github.com/freechipsproject/firrtl.git -b v1.4.1 \${HOME}/.firrtl"
+$> sh -c "cd \${HOME}/.firrtl && sbt compile && sbt test"
+$> sh -c "cd \${HOME}/.firrtl && sbt assembly"
+$> sh -c "cd \${HOME} && echo '# adding firrtl path' >> .bashrc"
+$> sh -c "cd \${HOME} && echo 'export FIRRTL_PATH=\${HOME}/.firrtl/utils/bin'  >> .bashrc"
+$> sh -c "cd \${HOME} && echo 'export PATH=\$FIRRTL_PATH:\$PATH' >> .bashrc"
+
+```
+
+To publish this version locally in order to satisfy other tool chain library dependencies(this is optional).
+```
+$> sbt publishLocal
+```
+
+Using firrtl is simple, for example.
+```
+$> firrtl -i sample.fir -o sample.v -X verilog // Compiles sample to Verilog
+```
+
 ## 2.How to start
 
 Check out from github repositry. 
@@ -44,9 +69,14 @@ You can check translated verilog HDL description and vcd under MyProject/test_ru
 $> gtkwave DEVICE_UNDER_TEST_0.vcd
 ```
 
+## 4. Get FIRand translate to Vrilog
 
+If your interest is to have verilog code from Chisel3 description, TBD.
 
-## 4.How to modify these files for your own design needs
+```
+```
+
+## 5.How to modify these files for your own design needs
 
  ### chisel3-device_under_test/src/main/scala/dut.scala
  https://github.com/SuminoeRabbits/chisel3-device_under_test/blob/master/src/main/scala/dut.scala
@@ -56,7 +86,7 @@ $> gtkwave DEVICE_UNDER_TEST_0.vcd
  https://github.com/SuminoeRabbits/chisel3-device_under_test/blob/master/src/test/scala/main.scala
  This is file to describe main object. Also extending class to let merget verilator backend to kick RTL simulation. This file is independent from DUT and TB, you don't have to change the file if you are happy with current test environment.
 
-## 5.Reference
+## 6.Reference
 
 ### getting start with Chisel3 
 You can start chisel tutorial on your web brower without instaling anything! Just brilliant work.... 
