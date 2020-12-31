@@ -1,6 +1,7 @@
 package device_under_test_0 
 
 import java.io.File
+import java.io._
 
 import chisel3._
 import chisel3.iotesters
@@ -19,9 +20,12 @@ object DEVICE_UNDER_TEST_0Main extends App {
 
 object DUMP_FIR extends App {
   val firrtlSerialization = chisel3.Driver.emit(() => new DEVICE_UNDER_TEST_0)
-  println(";firrtl generation")
-  println(firrtlSerialization)
+  val filename = "dump_fir.fir"
+  val pw = new PrintWriter(new File(filename))
+  pw.write(firrtlSerialization)
+  pw.close
 }
+
 
 
 //
