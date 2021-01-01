@@ -1,6 +1,7 @@
 package device_under_test_0 
 
 import java.io.File
+import java.nio.file.{Paths, Files}
 import java.io._
 
 import chisel3._
@@ -18,13 +19,17 @@ object DEVICE_UNDER_TEST_0Main extends App {
   //println(Driver.emitVerilog(new  DEVICE_UNDER_TEST_0))
 }
 
-object DUMP_FIR extends App {
-  val firrtlSerialization = chisel3.Driver.emit(() => new DEVICE_UNDER_TEST_0)
-  val filename = "dump_fir.fir"
-  val pw = new PrintWriter(new File(filename))
-  pw.write(firrtlSerialization)
-  pw.close
+// to run after compile, use the following command on sbt
+// sbt: > test:runMain device_under_test_0.DumpFIR 
+
+object DumpFIR extends App {
+  // 新規ディレクトリ作成
+  val dirp = Paths.get("firrtl")
+  if(Files.notExists(dirp)) Files.createDirectories(dirp) // mkdir -p
+  val f0 = new File("firrtl/DEVICE_UNDER_TEST_0.fir")
+  chisel3.Driver.dumpFirrtl(chisel3.Driver.elaborate(() => new DEVICE_UNDER_TEST_0), Option(f0))
 }
+
 
 
 

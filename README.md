@@ -74,7 +74,7 @@ $> gtkwave DEVICE_UNDER_TEST_0.vcd
 If your interest is to have verilog code from Chisel3 description, TBD.
 ```
 $> sbt "compile"
-$> sbt "test:runMain device_under_test_0.DUMP_FIR" # fir dump only
+$> sbt "test:runMain device_under_test_0.DumpFIR" # fir dump only
 ```
 
 ## 5.How to modify these files for your own design needs
